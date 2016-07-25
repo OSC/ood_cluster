@@ -1,0 +1,78 @@
+v1:
+  oakley: !ruby/object:OodCluster::Cluster
+    title: 'Oakley'
+    rsv_query: !ruby/object:OodCluster::RsvQueries::TorqueMoab
+      validations:
+        - !ruby/object:OodCluster::Validations::Groups
+          groups:
+            - 'sysp'
+            - 'hpcsoft'
+          whitelist: false
+    servers:
+      login: !ruby/object:OodCluster::Server
+        host: 'oakley.osc.edu'
+      resource_mgr: !ruby/object:OodCluster::Servers::Torque
+        host: 'oak-batch.osc.edu'
+        prefix: '/usr/local/torque/5.1.1-1_fba25d92'
+        version: '5.1.1'
+      scheduler: !ruby/object:OodCluster::Servers::Moab
+        host: 'oak-batch.osc.edu'
+        prefix: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6'
+        version: '8.1.1'
+        moabhomedir: '/var/spool/batch/moab'
+      ganglia: !ruby/object:OodCluster::Servers::Ganglia
+        host: 'cts05.osc.edu'
+        scheme: 'https://'
+        segments:
+          - 'gweb'
+          - 'graph.php'
+        req_query:
+          c: 'Oakley nodes'
+        opt_query:
+          h: '%{h}.ten.osc.edu'
+        version: '3'
+  ruby: !ruby/object:OodCluster::Cluster
+    title: 'Ruby'
+    validations:
+      - !ruby/object:OodCluster::Validations::Groups
+        groups:
+          - 'ruby'
+    servers:
+      login: !ruby/object:OodCluster::Server
+        host: 'ruby.osc.edu'
+      resource_mgr: !ruby/object:OodCluster::Servers::Torque
+        host: 'ruby-batch.osc.edu'
+        prefix: '/usr/local/torque/5.1.1-1_fba25d92'
+        version: '5.1.1'
+      scheduler: !ruby/object:OodCluster::Servers::Moab
+        host: 'ruby-batch.osc.edu'
+        prefix: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6'
+        version: '8.1.1'
+        moabhomedir: '/var/spool/batch/moab'
+      ganglia: !ruby/object:OodCluster::Servers::Ganglia
+        host: 'cts05.osc.edu'
+        scheme: 'https://'
+        segments:
+          - 'gweb'
+          - 'graph.php'
+        req_query:
+          c: 'Ruby'
+        opt_query:
+          h: '%{h}.ten.osc.edu'
+        version: '3'
+  quick: !ruby/object:OodCluster::Cluster
+    title: 'Quick'
+    hpc_cluster: false
+    servers:
+      resource_mgr: !ruby/object:OodCluster::Servers::Torque
+        host: 'quick-batch.osc.edu'
+        prefix: '/usr/local/torque/5.1.1-1_fba25d92'
+        version: '5.1.1'
+        sub_cluster:
+          - 'ruby'
+          - 'oakley'
+      scheduler: !ruby/object:OodCluster::Servers::Moab
+        host: 'quick-batch.osc.edu'
+        prefix: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6'
+        version: '8.1.1'
+        moabhomedir: '/var/spool/batch/moab'
