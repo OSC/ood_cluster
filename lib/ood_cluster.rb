@@ -8,6 +8,7 @@ require 'ood_cluster/rsv_query'
 module OodCluster
   # A namespace to hold all subclasses of {Server}
   module Servers
+    require 'ood_cluster/servers/ssh'
     require 'ood_cluster/servers/torque'
     require 'ood_cluster/servers/moab'
     require 'ood_cluster/servers/ganglia'

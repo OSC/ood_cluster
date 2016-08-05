@@ -9,7 +9,7 @@ v1:
             - 'hpcsoft'
           whitelist: false
     servers:
-      login: !ruby/object:OodCluster::Server
+      login: !ruby/object:OodCluster::Servers::Ssh
         host: 'oakley.osc.edu'
       resource_mgr: !ruby/object:OodCluster::Servers::Torque
         host: 'oak-batch.osc.edu'
@@ -38,7 +38,7 @@ v1:
         groups:
           - 'ruby'
     servers:
-      login: !ruby/object:OodCluster::Server
+      login: !ruby/object:OodCluster::Servers::Ssh
         host: 'ruby.osc.edu'
       resource_mgr: !ruby/object:OodCluster::Servers::Torque
         host: 'ruby-batch.osc.edu'
