@@ -9,7 +9,7 @@ module OodCluster
 
       # @param groups [Array<#to_s>] list of groups
       # @param whitelist [Boolean] whether this is a whitelist
-      def initialize(groups:, whitelist: true)
+      def initialize(groups:, whitelist: true, **_)
         @groups = [*groups].map {|g| OodSupport::Group.new g.to_s}
         @whitelist = whitelist
       end
