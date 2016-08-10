@@ -5,67 +5,59 @@ module OodCluster
   module Servers
     # This class defines a Moab server / client software installation
     class Moab < Server
-      # The path to the installation location for this software
-      # @return [Pathname] the path to software installation location
-      attr_reader :prefix
+      # The path to the installation location for this software's libraries
+      # @example Locally installed Moab 8.1.1
+      #   my_software.lib.to_s #=> "/usr/local/moab/8.1.1/lib"
+      # @return [Pathname] the path to software libraries
+      attr_reader :lib
+
+      # The path to the installation location for this software's binaries
+      # @example Locally installed Moab 8.1.1
+      #   my_software.bin.to_s #=> "/usr/local/moab/8.1.1/bin"
+      # @return [Pathname] the path to software binaries
+      attr_reader :bin
 
       # The version of this software
       # @return [String] version of software
       attr_reader :version
 
       # The required Moab environment variable
-      # @return [Pathname] require moab env var
+      # @example
+      #   my_software.moabhomedir #=> "/var/spool/batch/moab"
+      # @return [Pathname] required moab env var
       attr_reader :moabhomedir
 
       # @param (see Server#initialize)
-      # @param prefix [#to_s] installation path of client software
+      # @param lib [#to_s] installation path of client software libraries
+      # @param bin [#to_s] installation path of client software binaries
       # @param version [#to_s] version of client software
-      # @param moabhomedir [#to_s] required moab env var
-      def initialize(prefix:, version:, moabhomedir:, **kwargs)
+      # @param moabhomedir [#to_s, nil] required moab env var
+      def initialize(lib: '', bin: '', version:, moabhomedir: ENV['MOABHOMEDIR'], **kwargs)
         super(kwargs)
 
         # installation path
-        @prefix = Pathname.new(prefix)
-        raise ArgumentError, "prefix path doesn't exist (#{@prefix})" unless @prefix.exist?
-        raise ArgumentError, "prefix not valid directory (#{@prefix})" unless @prefix.directory?
+        @lib = Pathname.new(lib.to_s)
+        @bin = Pathname.new(bin.to_s)
 
         # version number
         @version = version.to_s
 
         # required moab env var
-        @moabhomedir = Pathname.new(moabhomedir)
-        raise ArgumentError, "moabhomedir path doesn't exist (#{@moabhomedir})" unless @moabhomedir.exist?
-        raise ArgumentError, "moabhomedir not valid directory (#{@moabhomedir})" unless @moabhomedir.directory?
+        @moabhomedir = Pathname.new(moabhomedir.to_s)
       end
 
       # Object used to make connections and communicate with a Moab scheduler
       # server
       class Scheduler
-        # The host of the Moab scheduler server
-        # @example OSC's Oakley scheduler
-        #   my_scheduler.host #=> "oak-batch.osc.edu"
-        # @return [String] the moab scheduler host
-        attr_reader :host
-
-        # The path to the Moab client installation
-        # @example For Moab 8.1.1
-        #   my_scheduler.prefix.to_s #=> "/usr/local/moab/8.1.1"
-        # @return [Pathname] path to moab installation
-        attr_reader :prefix
-
-        # The path to the Moab homedir
-        # @example For default Moab installation
-        #   my_scheduler.moabhomedir #=> "/var/spool/batch/moab"
-        # @return [Pathname] path to moab homedir
-        attr_reader :moabhomedir
-
         # @param host [#to_s] the moab scheduler server
-        # @param prefix [#to_s] path to moab installation
+        # @param lib [#to_s] path to moab installation libraries
+        # @param bin [#to_s] path to moab installation binaries
         # @param moabhomedir [#to_s] path to moab homedir
-        def initialize(host:, prefix:, moabhomedir:)
+        def initialize(host:, lib:, bin:, moabhomedir:)
           @host        = host.to_s
-          @prefix      = Pathname.new(prefix)
-          @moabhomedir = Pathname.new(moabhomedir)
+          @lib         = Pathname.new(lib.to_s)
+          @bin         = Pathname.new(bin.to_s)
+          @moabhomedir = Pathname.new(moabhomedir.to_s)
         end
 
         # An exception raised when attempting to call Moab command that exits
@@ -79,43 +71,27 @@ module OodCluster
         # @raise [Error] if command line exits with nonzero exit code
         def call(cmd, *args)
           env = {
-            "LD_LIBRARY_PATH" => "#{prefix.join('lib')}:#{ENV['LD_LIBRARY_PATH']}",
-            "MOABHOMEDIR"     => "#{moabhomedir}"
+            # lib is not necessary for calling from command line
+            "MOABHOMEDIR" => "#{@moabhomedir}"
           }
-          cmd = prefix.join('bin', cmd.to_s).to_s
-          args = args.map(&:to_s) + ["--host=#{host}", "--xml"]
+          cmd = @bin.join(cmd.to_s).to_s
+          args = ["--host=#{@host}", "--xml"] + args.map(&:to_s)
           o, e, s = Open3.capture3(env, cmd, *args)
           s.success? ? Nokogiri::XML(o) : raise(Error, e)
         end
-      end
-
-      # The path to Torque software library
-      # @example Locally installed Torque v5.1.1
-      #   "my_software.lib" #=> "/usr/local/torque/5.1.1/lib"
-      # @return [Pathname] path to libraries
-      def lib
-        prefix.join('lib')
-      end
-
-      # The path to Torque software binaries
-      # @example Locally installed Torque v5.1.1
-      #   "my_software.lib" #=> "/usr/local/torque/5.1.1/bin"
-      # @return [Pathname] path to binaries
-      def bin
-        prefix.join('bin')
       end
 
       # The Moab object corresponding to this server used for communicating
       # with the server
       # @return [Scheduler] the moab scheduler server
       def moab
-        Scheduler.new(host: host, prefix: prefix, moabhomedir: moabhomedir)
+        Scheduler.new(host: host, lib: lib, bin: bin, moabhomedir: moabhomedir)
       end
 
       # Convert object to hash
       # @return [Hash] the hash describing the object
       def to_h
-        super.merge prefix: prefix, version: version, moabhomedir: moabhomedir
+        super.merge lib: lib, bin: bin, version: version, moabhomedir: moabhomedir
       end
     end
   end

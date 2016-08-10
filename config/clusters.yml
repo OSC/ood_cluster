@@ -13,11 +13,13 @@ v1:
         host: 'oakley.osc.edu'
       resource_mgr: !ruby/object:OodCluster::Servers::Torque
         host: 'oak-batch.osc.edu'
-        prefix: '/usr/local/torque/5.1.1-1_fba25d92'
+        lib: '/usr/local/torque/5.1.1-1_fba25d92/lib'
+        bin: '/usr/local/torque/5.1.1-1_fba25d92/bin'
         version: '5.1.1'
       scheduler: !ruby/object:OodCluster::Servers::Moab
         host: 'oak-batch.osc.edu'
-        prefix: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6'
+        lib: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib'
+        bin: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin'
         version: '8.1.1'
         moabhomedir: '/var/spool/batch/moab'
       ganglia: !ruby/object:OodCluster::Servers::Ganglia
@@ -42,11 +44,13 @@ v1:
         host: 'ruby.osc.edu'
       resource_mgr: !ruby/object:OodCluster::Servers::Torque
         host: 'ruby-batch.osc.edu'
-        prefix: '/usr/local/torque/5.1.1-1_fba25d92'
+        lib: '/usr/local/torque/5.1.1-1_fba25d92/lib'
+        bin: '/usr/local/torque/5.1.1-1_fba25d92/bin'
         version: '5.1.1'
       scheduler: !ruby/object:OodCluster::Servers::Moab
         host: 'ruby-batch.osc.edu'
-        prefix: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6'
+        lib: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib'
+        bin: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin'
         version: '8.1.1'
         moabhomedir: '/var/spool/batch/moab'
       ganglia: !ruby/object:OodCluster::Servers::Ganglia
@@ -66,13 +70,15 @@ v1:
     servers:
       resource_mgr: !ruby/object:OodCluster::Servers::Torque
         host: 'quick-batch.osc.edu'
-        prefix: '/usr/local/torque/5.1.1-1_fba25d92'
+        lib: '/usr/local/torque/5.1.1-1_fba25d92/lib'
+        bin: '/usr/local/torque/5.1.1-1_fba25d92/bin'
         version: '5.1.1'
         sub_cluster:
           - 'ruby'
           - 'oakley'
       scheduler: !ruby/object:OodCluster::Servers::Moab
         host: 'quick-batch.osc.edu'
-        prefix: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6'
+        lib: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib'
+        bin: '/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin'
         version: '8.1.1'
         moabhomedir: '/var/spool/batch/moab'
