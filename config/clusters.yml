@@ -1,6 +1,5 @@
 v1:
   oakley: !ruby/object:OodCluster::Cluster
-    title: 'Oakley'
     rsv_query: !ruby/object:OodCluster::RsvQueries::TorqueMoab
       validations:
         - !ruby/object:OodCluster::Validations::Groups
@@ -34,7 +33,6 @@ v1:
           h: '%{h}.ten.osc.edu'
         version: '3'
   ruby: !ruby/object:OodCluster::Cluster
-    title: 'Ruby'
     validations:
       - !ruby/object:OodCluster::Validations::Groups
         groups:
@@ -65,7 +63,6 @@ v1:
           h: '%{h}.ten.osc.edu'
         version: '3'
   quick: !ruby/object:OodCluster::Cluster
-    title: 'Quick'
     hpc_cluster: false
     servers:
       resource_mgr: !ruby/object:OodCluster::Servers::Torque

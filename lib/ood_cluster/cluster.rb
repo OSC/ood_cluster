@@ -11,17 +11,11 @@ module OodCluster
     # YAML configuration version
     YML_VERSION = 'v1'
 
-    # Title of the cluster
-    # @return [String] title of cluster
-    attr_reader :title
-
-    # @param title [#to_s] title of cluster
     # @param validations [Array<#valid?>] list of validations
     # @param servers [#to_h] hash of servers
     # @param hpc_cluster [Boolean] whether this is an hpc cluster
     # @param rsv_query [RsvQuery] reservation query object
-    def initialize(title:, validations: [], servers: {}, hpc_cluster: true, rsv_query: nil)
-      @title = title.to_s
+    def initialize(validations: [], servers: {}, hpc_cluster: true, rsv_query: nil, **_)
       @validations = validations
       @servers = servers.to_h
       @hpc_cluster = hpc_cluster
