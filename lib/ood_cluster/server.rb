@@ -1,10 +1,6 @@
-require 'ood_cluster/deserializable'
-
 module OodCluster
   # An object that describes a server hosted by a given cluster
   class Server
-    include Deserializable
-
     # The host information for this server object
     # @example Host information for login node
     #   "my_server.host" #=> "oakley.osc.edu"

@@ -1,15 +1,10 @@
 require 'yaml'
 require 'ood_cluster/validatable'
-require 'ood_cluster/deserializable'
 
 module OodCluster
   # An object that describes a given cluster of nodes used by an HPC center
   class Cluster
     include Validatable
-    include Deserializable
-
-    # YAML configuration version
-    YML_VERSION = 'v1'
 
     # @param validations [Array<#valid?>] list of validations
     # @param servers [#to_h] hash of servers

@@ -1,12 +1,8 @@
 require 'ood_support'
-require 'ood_cluster/deserializable'
-
 module OodCluster
   module Validations
     # Class used to determine if user is in valid list of groups
     class Groups
-      include Deserializable
-
       # @param groups [Array<#to_s>] list of groups
       # @param whitelist [Boolean] whether this is a whitelist
       def initialize(groups:, whitelist: true, **_)

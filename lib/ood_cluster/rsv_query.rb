@@ -1,12 +1,9 @@
 require 'ood_cluster/validatable'
-require 'ood_cluster/deserializable'
-
 module OodCluster
   # Object used to communicate with a batch server to retrieve reservation
   # information for current user
   class RsvQuery
     include Validatable
-    include Deserializable
 
     # @param validations [Array<#valid?>] list of validations
     def initialize(validations: [], **_)
