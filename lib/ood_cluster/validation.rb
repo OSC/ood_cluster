@@ -1,25 +1,24 @@
 require 'ood_cluster/constructable'
 
 module OodCluster
-  # An object that describes a server hosted by a given cluster
-  class Server
+  # An object that describes a generic validation
+  class Validation
     extend Constructable
 
-    # The host information for this server object
-    # @example Host information for login node
-    #   "my_server.host" #=> "oakley.osc.edu"
-    # @return [String] the host for this server
-    attr_reader :host
-
-    # @param host [#to_s] host of server
-    def initialize(host:, **_)
-      @host = host.to_s
+    def initialize(**_)
     end
 
     # Convert object to hash
     # @return [Hash] the hash describing this object
     def to_h
-      {host: @host.to_s}
+      {}
+    end
+
+    # Whether this is valid
+    # @return [Boolean] whether this is valid
+    # @abstract This should be implemented in the inherited validation object
+    def valid?
+      raise NotImplementedError
     end
 
     # The comparison operator

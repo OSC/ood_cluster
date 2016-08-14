@@ -34,12 +34,21 @@ require 'ood_cluster'
 yml_v = OodCluster::Cluster::YML_VERSION
 
 # Read in example yaml file for OSC clusters
-osc_clusters = YAML.load(File.read("config/clusters.yml"))[yml_v]
+osc_clusters = YAML.load(File.read("config/clusters.yml"))['v1'].each_with_object({}) { |(k, v), h| h[k.to_sym] = OodCluster::Cluster.new v }
 #=>
 #{
-#  "oakley" => #<OodCluster::Cluster>,
-#  "ruby"   => #<OodCluster::Cluster>,
-#  "quick"  => #<OodCluster::Cluster>,
+#  :oakley => #<OodCluster::Cluster>,
+#  :ruby   => #<OodCluster::Cluster>,
+#  :quick  => #<OodCluster::Cluster>,
+#}
+
+# Or read in a JSON example file
+osc_clusters = JSON.parse(File.read("config/clusters.json"), symbolize_names: true)[:v1].each_with_object({}) { |(k, v), h| h[k] OodCluster::Cluster.new v }
+#=>
+#{
+#  :oakley => #<OodCluster::Cluster>,
+#  :ruby   => #<OodCluster::Cluster>,
+#  :quick  => #<OodCluster::Cluster>,
 #}
 ```
 
@@ -48,7 +57,7 @@ various servers hosted by the cluster.
 
 ```ruby
 # Play with the Oakley cluster
-oakley = osc_clusters['oakley']
+oakley = osc_clusters[:oakley]
 #=> #<OodCluster::Cluster>
 
 # Check if Oakley has a Resource Manager server

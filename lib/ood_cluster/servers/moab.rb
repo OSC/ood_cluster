@@ -24,15 +24,15 @@ module OodCluster
       # The required Moab environment variable
       # @example
       #   my_software.moabhomedir #=> "/var/spool/batch/moab"
-      # @return [Pathname] required moab env var
+      # @return [Pathname] necessary environment variable
       attr_reader :moabhomedir
 
       # @param (see Server#initialize)
       # @param lib [#to_s] installation path of client software libraries
       # @param bin [#to_s] installation path of client software binaries
       # @param version [#to_s] version of client software
-      # @param moabhomedir [#to_s, nil] required moab env var
-      def initialize(lib: '', bin: '', version:, moabhomedir: ENV['MOABHOMEDIR'], **kwargs)
+      # @param moabhomedir [#to_s] necessary environment variable
+      def initialize(lib: "", bin: "", version:, moabhomedir: ENV['MOABHOMEDIR'], **kwargs)
         super(kwargs)
 
         # installation path
@@ -42,8 +42,14 @@ module OodCluster
         # version number
         @version = version.to_s
 
-        # required moab env var
+        # necessary moab environment variable
         @moabhomedir = Pathname.new(moabhomedir.to_s)
+      end
+
+      # Convert object to hash
+      # @return [Hash] the hash describing this object
+      def to_h
+        super.merge lib: @lib.to_s, bin: @bin.to_s, version: @version.to_s, moabhomedir: @moabhomedir.to_s
       end
 
       # Object used to make connections and communicate with a Moab scheduler
@@ -86,12 +92,6 @@ module OodCluster
       # @return [Scheduler] the moab scheduler server
       def moab
         Scheduler.new(host: host, lib: lib, bin: bin, moabhomedir: moabhomedir)
-      end
-
-      # Convert object to hash
-      # @return [Hash] the hash describing the object
-      def to_h
-        super.merge lib: lib, bin: bin, version: version, moabhomedir: moabhomedir
       end
     end
   end

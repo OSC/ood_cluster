@@ -3,6 +3,7 @@ require 'ood_cluster/cluster'
 require 'ood_cluster/server'
 require 'ood_cluster/reservation'
 require 'ood_cluster/rsv_query'
+require 'ood_cluster/validation'
 
 # The main namespace for ood_cluster
 module OodCluster

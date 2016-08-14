@@ -56,8 +56,20 @@ module OodCluster
         @req_query = req_query.to_h
         @opt_query = opt_query.to_h
 
-        # version
+        # version number
         @version = version.to_s
+      end
+
+      # Convert object to hash
+      # @return [Hash] the hash describing this object
+      def to_h
+        super.merge(
+          scheme: @scheme.to_s,
+          segments: @segments.map(&:to_s),
+          req_query: @req_query.to_h,
+          opt_query: @opt_query.to_h,
+          version: @version.to_s
+        )
       end
 
       # The URI used to access information about given cluster
@@ -70,12 +82,6 @@ module OodCluster
           segments: segments,
           query: query_hash(query.to_h)
         })
-      end
-
-      # Convert object to hash
-      # @return [Hash] the hash describing the object
-      def to_h
-        super.merge scheme: scheme, segments: segments, req_query: req_query, opt_query: opt_query, version: version
       end
 
       private

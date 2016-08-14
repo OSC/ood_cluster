@@ -24,7 +24,7 @@ module OodCluster
       # @param lib [#to_s] installation path of client software libraries
       # @param bin [#to_s] installation path of client software binaries
       # @param version [#to_s] version of client software
-      def initialize(lib: '', bin: '', version:, **kwargs)
+      def initialize(lib: "", bin: "", version:, **kwargs)
         super(kwargs)
 
         # installation path
@@ -35,16 +35,16 @@ module OodCluster
         @version = version.to_s
       end
 
+      # Convert object to hash
+      # @return [Hash] the hash describing this object
+      def to_h
+        super.merge lib: @lib.to_s, bin: @bin.to_s, version: @version.to_s
+      end
+
       # The PBS object corresponding to this server
       # @return [PBS::Batch] the pbs batch server
       def pbs
         PBS::Batch.new(host: host, lib: lib, bin: bin)
-      end
-
-      # Convert object to hash
-      # @return [Hash] the hash describing the object
-      def to_h
-        super.merge lib: lib, bin: bin, version: version
       end
     end
   end

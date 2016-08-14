@@ -5,10 +5,9 @@ module OodCluster
     # @example Whether I have access to this cluster
     #   my_cluster.valid?
     #   #=> true
-    # @param force [Boolean] force it to always be valid
     # @return [Boolean] whether this object is valid
-    def valid?(force = false)
-      force || @validations.all?(&:valid?)
+    def valid?
+      @validations.all?(&:valid?)
     end
   end
 end

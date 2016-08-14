@@ -64,37 +64,30 @@ module OodCluster
       nodes.select(&:is_free?)
     end
 
-    # Convert object to hash
-    # @return [Hash] the hash describing this object
-    def to_h
-      {id: id, start_time: start_time, end_time: end_time, users: users, groups: groups, nodes: nodes}
-    end
-
     # Convert object to string
-    # @return [String] the id of the node
+    # @return [String] the string describing this object
     def to_s
       id
     end
 
     # The comparison operator for sorting values
-    # @param other [#to_s] reservation to compare against
-    # @return [Boolean] how reservations compare
+    # @param other [#to_s] object to compare against
+    # @return [Boolean] how objects compare
     def <=>(other)
-      id <=> other
+      to_s <=> other.to_s
     end
 
-    # Checks whether two Reservation objects have the same id as well as in the
-    # same class
-    # @param other [Reservation] reservation to compare against
-    # @return [Boolean] whether same objects
+    # Check whether objects are identical to each other
+    # @param other [#to_h] object to compare against
+    # @return [Boolean] whether objects are identical
     def eql?(other)
-      self.class == other.class && id == other.id
+      self.class == other.class && self == other
     end
 
-    # Generates a hash value for this object
+    # Generate a hash value for this object
     # @return [Fixnum] hash value of object
     def hash
-      [self.class, id].hash
+      [self.class, to_s].hash
     end
 
     # Object that describes a reserved node on a generic batch server
@@ -141,37 +134,30 @@ module OodCluster
         ppn_used == 0
       end
 
-      # Convert object to hash
-      # @return [Hash] the hash describing this object
-      def to_h
-        {id: id, ppn: ppn, ppn_used: ppn_used, props: props, jobs: jobs}
-      end
-
       # Convert object to string
-      # @return [String] the id of the node
+      # @return [String] the string describing this object
       def to_s
         id
       end
 
       # The comparison operator for sorting values
-      # @param other [#to_s] node to compare against
-      # @return [Boolean] how nodes compare
+      # @param other [#to_s] object to compare against
+      # @return [Boolean] how objects compare
       def <=>(other)
-        id <=> other
+        to_s <=> other.to_s
       end
 
-      # Checks whether two Reservation objects have the same id as well as in the
-      # same class
-      # @param other [Node] node to compare against
-      # @return [Boolean] whether same objects
+      # Check whether objects are identical to each other
+      # @param other [#to_h] object to compare against
+      # @return [Boolean] whether objects are identical
       def eql?(other)
-        self.class == other.class && id == other.id
+        self.class == other.class && self == other
       end
 
-      # Generates a hash value for this object
+      # Generate a hash value for this object
       # @return [Fixnum] hash value of object
       def hash
-        [self.class, id].hash
+        [self.class, to_s].hash
       end
     end
   end
