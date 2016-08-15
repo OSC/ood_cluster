@@ -1,9 +1,9 @@
-require 'ood_cluster/constructable'
+require 'ood_cluster/deserializable'
 
 module OodCluster
   # An object that describes a generic validation
   class Validation
-    extend Constructable
+    extend Deserializable
 
     def initialize(**_)
     end

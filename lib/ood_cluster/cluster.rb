@@ -1,30 +1,32 @@
 require 'yaml'
 require 'ood_cluster/validatable'
+require 'ood_cluster/deserializable'
 
 module OodCluster
   # An object that describes a given cluster of nodes used by an HPC center
   class Cluster
+    extend Deserializable
     include Validatable
 
-    # @param validations [Array<#to_h>] list of validations
-    # @param servers [Hash{Symbol=>#to_h}] hash of servers
+    # @param validations [Array<Validation>] list of validations
+    # @param servers [Hash{#to_sym=>Server}] hash of servers
     # @param hpc_cluster [Boolean] whether this is an hpc cluster
-    # @param rsv_query [nil,#to_h] reservation query object
+    # @param rsv_query [nil,RsvQuery] reservation query object
     def initialize(validations: [], servers: {}, hpc_cluster: true, rsv_query: nil, **_)
-      @validations = validations.map { |v| Validation.construct(v) }
-      @servers = servers.to_h.each_with_object({}) { |(k, v), h| h[k] = Server.construct(v) }
+      @validations = validations
+      @servers = servers.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
       @hpc_cluster = hpc_cluster
-      @rsv_query = rsv_query ? RsvQuery.construct(rsv_query) : nil
+      @rsv_query = rsv_query
     end
 
     # Convert object to hash
     # @return [Hash] the hash describing this object
     def to_h
       {
-        validations: @validations.map { |v| Validation.deconstruct(v) },
-        servers: @servers.to_h.each_with_object({}) { |(k, v), h| h[k] = Server.deconstruct(v) },
+        validations: @validations,
+        servers: @servers,
         hpc_cluster: @hpc_cluster,
-        rsv_query: @rsv_query ? RsvQuery.deconstruct(@rsv_query) : nil
+        rsv_query: @rsv_query
       }
     end
 

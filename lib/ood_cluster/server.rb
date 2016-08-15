@@ -1,9 +1,9 @@
-require 'ood_cluster/constructable'
+require 'ood_cluster/deserializable'
 
 module OodCluster
   # An object that describes a server hosted by a given cluster
   class Server
-    extend Constructable
+    extend Deserializable
 
     # The host information for this server object
     # @example Host information for login node

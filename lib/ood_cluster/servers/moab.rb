@@ -49,7 +49,7 @@ module OodCluster
       # Convert object to hash
       # @return [Hash] the hash describing this object
       def to_h
-        super.merge lib: @lib.to_s, bin: @bin.to_s, version: @version.to_s, moabhomedir: @moabhomedir.to_s
+        super.merge lib: @lib, bin: @bin, version: @version, moabhomedir: @moabhomedir
       end
 
       # Object used to make connections and communicate with a Moab scheduler

@@ -44,8 +44,8 @@ module OodCluster
       # @param (see Server#initialize)
       # @param scheme [#to_s] the scheme used for URI
       # @param segments [Array<#to_s>] the segments used to construct path of URI
-      # @param req_query [#to_h] hash of required query values used for URI
-      # @param opt_query [#to_h] hash of optional query values if they exist
+      # @param req_query [Hash{#to_sym=>#to_s}] hash of required query values used for URI
+      # @param opt_query [Hash{#to_sym=>#to_s}] hash of optional query values if they exist
       # @param version [#to_s] version of server software
       def initialize(scheme:, segments: [], req_query: {}, opt_query: {}, version:, **kwargs)
         super(kwargs)
@@ -53,8 +53,8 @@ module OodCluster
         # uri
         @scheme = scheme.to_s
         @segments = segments.map(&:to_s)
-        @req_query = req_query.to_h
-        @opt_query = opt_query.to_h
+        @req_query = req_query.to_h.each_with_object({}) { |(k, v), h| h[k.to_sym] = v.to_s }
+        @opt_query = opt_query.to_h.each_with_object({}) { |(k, v), h| h[k.to_sym] = v.to_s }
 
         # version number
         @version = version.to_s
@@ -64,11 +64,11 @@ module OodCluster
       # @return [Hash] the hash describing this object
       def to_h
         super.merge(
-          scheme: @scheme.to_s,
-          segments: @segments.map(&:to_s),
-          req_query: @req_query.to_h,
-          opt_query: @opt_query.to_h,
-          version: @version.to_s
+          scheme: @scheme,
+          segments: @segments,
+          req_query: @req_query,
+          opt_query: @opt_query,
+          version: @version
         )
       end
 

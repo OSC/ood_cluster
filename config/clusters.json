@@ -1,167 +1,176 @@
 {
   "v1": {
     "oakley": {
-      "rsv_query": {
-        "type": "OodCluster::RsvQueries::TorqueMoab",
-        "data": {
-          "validations": [
-            {
-              "type": "OodCluster::Validations::Groups",
-              "data": {
-                "groups": [
-                  "sysp",
-                  "hpcsoft"
-                ],
-                "whitelist": false
+      "type": "OodCluster::Cluster",
+      "data": {
+        "rsv_query": {
+          "type": "OodCluster::RsvQueries::TorqueMoab",
+          "data": {
+            "validations": [
+              {
+                "type": "OodCluster::Validations::Groups",
+                "data": {
+                  "groups": [
+                    "sysp",
+                    "hpcsoft"
+                  ],
+                  "whitelist": false
+                }
               }
+            ]
+          }
+        },
+        "servers": {
+          "login": {
+            "type": "OodCluster::Servers::Ssh",
+            "data": {
+              "host": "oakley.osc.edu"
             }
-          ]
-        }
-      },
-      "servers": {
-        "login": {
-          "type": "OodCluster::Servers::Ssh",
-          "data": {
-            "host": "oakley.osc.edu"
-          }
-        },
-        "resource_mgr": {
-          "type": "OodCluster::Servers::Torque",
-          "data": {
-            "host": "oak-batch.osc.edu",
-            "lib": "/usr/local/torque/5.1.1-1_fba25d92/lib",
-            "bin": "/usr/local/torque/5.1.1-1_fba25d92/bin",
-            "version": "5.1.1"
-          }
-        },
-        "scheduler": {
-          "type": "OodCluster::Servers::Moab",
-          "data": {
-            "host": "oak-batch.osc.edu",
-            "lib": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib",
-            "bin": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin",
-            "version": "8.1.1",
-            "moabhomedir": "/var/spool/batch/moab"
-          }
-        },
-        "ganglia": {
-          "type": "OodCluster::Servers::Ganglia",
-          "data": {
-            "host": "cts05.osc.edu",
-            "scheme": "https://",
-            "segments": [
-              "gweb",
-              "graph.php"
-            ],
-            "req_query": {
-              "c": "Oakley nodes"
-            },
-            "opt_query": {
-              "h": "%{h}.ten.osc.edu"
-            },
-            "version": "3"
+          },
+          "resource_mgr": {
+            "type": "OodCluster::Servers::Torque",
+            "data": {
+              "host": "oak-batch.osc.edu",
+              "lib": "/usr/local/torque/5.1.1-1_fba25d92/lib",
+              "bin": "/usr/local/torque/5.1.1-1_fba25d92/bin",
+              "version": "5.1.1"
+            }
+          },
+          "scheduler": {
+            "type": "OodCluster::Servers::Moab",
+            "data": {
+              "host": "oak-batch.osc.edu",
+              "lib": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib",
+              "bin": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin",
+              "version": "8.1.1",
+              "moabhomedir": "/var/spool/batch/moab"
+            }
+          },
+          "ganglia": {
+            "type": "OodCluster::Servers::Ganglia",
+            "data": {
+              "host": "cts05.osc.edu",
+              "scheme": "https://",
+              "segments": [
+                "gweb",
+                "graph.php"
+              ],
+              "req_query": {
+                "c": "Oakley nodes"
+              },
+              "opt_query": {
+                "h": "%{h}.ten.osc.edu"
+              },
+              "version": "3"
+            }
           }
         }
       }
     },
     "ruby": {
-      "rsv_query": {
-        "type": "OodCluster::RsvQueries::TorqueMoab",
-        "data": {
-          "validations": [
-            {
-              "type": "OodCluster::Validations::Groups",
-              "data": {
-                "groups": [
-                  "sysp",
-                  "hpcsoft"
-                ],
-                "whitelist": false
-              }
-            }
-          ]
-        }
-      },
-      "validations": [
-        {
-          "type": "OodCluster::Validations::Groups",
+      "type": "OodCluster::Cluster",
+      "data": {
+        "rsv_query": {
+          "type": "OodCluster::RsvQueries::TorqueMoab",
           "data": {
-            "groups": [
-              "ruby"
+            "validations": [
+              {
+                "type": "OodCluster::Validations::Groups",
+                "data": {
+                  "groups": [
+                    "sysp",
+                    "hpcsoft"
+                  ],
+                  "whitelist": false
+                }
+              }
             ]
           }
-        }
-      ],
-      "servers": {
-        "login": {
-          "type": "OodCluster::Servers::Ssh",
-          "data": {
-            "host": "ruby.osc.edu"
-          }
         },
-        "resource_mgr": {
-          "type": "OodCluster::Servers::Torque",
-          "data": {
-            "host": "ruby-batch.osc.edu",
-            "lib": "/usr/local/torque/5.1.1-1_fba25d92/lib",
-            "bin": "/usr/local/torque/5.1.1-1_fba25d92/bin",
-            "version": "5.1.1"
+        "validations": [
+          {
+            "type": "OodCluster::Validations::Groups",
+            "data": {
+              "groups": [
+                "ruby"
+              ]
+            }
           }
-        },
-        "scheduler": {
-          "type": "OodCluster::Servers::Moab",
-          "data": {
-            "host": "ruby-batch.osc.edu",
-            "lib": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib",
-            "bin": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin",
-            "version": "8.1.1",
-            "moabhomedir": "/var/spool/batch/moab"
-          }
-        },
-        "ganglia": {
-          "type": "OodCluster::Servers::Ganglia",
-          "data": {
-            "host": "cts05.osc.edu",
-            "scheme": "https://",
-            "segments": [
-              "gweb",
-              "graph.php"
-            ],
-            "req_query": {
-              "c": "Ruby"
-            },
-            "opt_query": {
-              "h": "%{h}.ten.osc.edu"
-            },
-            "version": "3"
+        ],
+        "servers": {
+          "login": {
+            "type": "OodCluster::Servers::Ssh",
+            "data": {
+              "host": "ruby.osc.edu"
+            }
+          },
+          "resource_mgr": {
+            "type": "OodCluster::Servers::Torque",
+            "data": {
+              "host": "ruby-batch.osc.edu",
+              "lib": "/usr/local/torque/5.1.1-1_fba25d92/lib",
+              "bin": "/usr/local/torque/5.1.1-1_fba25d92/bin",
+              "version": "5.1.1"
+            }
+          },
+          "scheduler": {
+            "type": "OodCluster::Servers::Moab",
+            "data": {
+              "host": "ruby-batch.osc.edu",
+              "lib": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib",
+              "bin": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin",
+              "version": "8.1.1",
+              "moabhomedir": "/var/spool/batch/moab"
+            }
+          },
+          "ganglia": {
+            "type": "OodCluster::Servers::Ganglia",
+            "data": {
+              "host": "cts05.osc.edu",
+              "scheme": "https://",
+              "segments": [
+                "gweb",
+                "graph.php"
+              ],
+              "req_query": {
+                "c": "Ruby"
+              },
+              "opt_query": {
+                "h": "%{h}.ten.osc.edu"
+              },
+              "version": "3"
+            }
           }
         }
       }
     },
     "quick": {
-      "hpc_cluster": false,
-      "servers": {
-        "resource_mgr": {
-          "type": "OodCluster::Servers::Torque",
-          "data": {
-            "host": "quick-batch.osc.edu",
-            "lib": "/usr/local/torque/5.1.1-1_fba25d92/lib",
-            "bin": "/usr/local/torque/5.1.1-1_fba25d92/bin",
-            "version": "5.1.1",
-            "sub_cluster": [
-              "ruby",
-              "oakley"
-            ]
-          }
-        },
-        "scheduler": {
-          "type": "OodCluster::Servers::Moab",
-          "data": {
-            "host": "quick-batch.osc.edu",
-            "lib": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib",
-            "bin": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin",
-            "version": "8.1.1",
-            "moabhomedir": "/var/spool/batch/moab"
+      "type": "OodCluster::Cluster",
+      "data": {
+        "hpc_cluster": false,
+        "servers": {
+          "resource_mgr": {
+            "type": "OodCluster::Servers::Torque",
+            "data": {
+              "host": "quick-batch.osc.edu",
+              "lib": "/usr/local/torque/5.1.1-1_fba25d92/lib",
+              "bin": "/usr/local/torque/5.1.1-1_fba25d92/bin",
+              "version": "5.1.1",
+              "sub_cluster": [
+                "ruby",
+                "oakley"
+              ]
+            }
+          },
+          "scheduler": {
+            "type": "OodCluster::Servers::Moab",
+            "data": {
+              "host": "quick-batch.osc.edu",
+              "lib": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib",
+              "bin": "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin",
+              "version": "8.1.1",
+              "moabhomedir": "/var/spool/batch/moab"
+            }
           }
         }
       }

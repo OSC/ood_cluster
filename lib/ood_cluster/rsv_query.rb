@@ -1,23 +1,23 @@
 require 'ood_cluster/validatable'
-require 'ood_cluster/constructable'
+require 'ood_cluster/deserializable'
 
 module OodCluster
   # Object used to communicate with a batch server to retrieve reservation
   # information for current user
   class RsvQuery
-    extend Constructable
+    extend Deserializable
     include Validatable
 
-    # @param validations [Array<#to_h>] list of validations
+    # @param validations [Array<Validation>] list of validations
     def initialize(validations: [], **_)
-      @validations = validations.map { |v| Validation.construct(v) }
+      @validations = validations
     end
 
     # Convert object to hash
     # @return [Hash] the hash describing this object
     def to_h
       {
-        validations: @validations.map { |v| Validation.deconstruct(v) }
+        validations: @validations
       }
     end
 

@@ -16,7 +16,7 @@ module OodCluster
       # Convert object to hash
       # @return [Hash] the hash describing this object
       def to_h
-        super.merge groups: @groups.map(&:to_s), whitelist: @whitelist
+        super.merge groups: @groups, whitelist: @whitelist
       end
 
       # Whether user is in a valid group

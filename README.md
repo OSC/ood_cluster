@@ -30,25 +30,25 @@ is an example yaml configuration file included with this repo:
 ```ruby
 require 'ood_cluster'
 
-# Version of yaml that this library accepts when reading in a cluster
-yml_v = OodCluster::Cluster::YML_VERSION
-
-# Read in example yaml file for OSC clusters
-osc_clusters = YAML.load(File.read("config/clusters.yml"))['v1'].each_with_object({}) { |(k, v), h| h[k.to_sym] = OodCluster::Cluster.new v }
+# Read in example json file for OSC clusters
+require 'json'
+JSON.create_id = "type"
+osc_clusters = JSON.load(File.read("config/clusters.json"))['v1']
 #=>
 #{
-#  :oakley => #<OodCluster::Cluster>,
-#  :ruby   => #<OodCluster::Cluster>,
-#  :quick  => #<OodCluster::Cluster>,
+#  "oakley" => #<OodCluster::Cluster>,
+#  "ruby"   => #<OodCluster::Cluster>,
+#  "quick"  => #<OodCluster::Cluster>,
 #}
 
-# Or read in a JSON example file
-osc_clusters = JSON.parse(File.read("config/clusters.json"), symbolize_names: true)[:v1].each_with_object({}) { |(k, v), h| h[k] OodCluster::Cluster.new v }
+# Read in example yaml file for OSC clusters
+require 'yaml'
+osc_clusters = JSON.load(JSON.dump(YAML.load(File.read("config/clusters.yml"))))['v1']
 #=>
 #{
-#  :oakley => #<OodCluster::Cluster>,
-#  :ruby   => #<OodCluster::Cluster>,
-#  :quick  => #<OodCluster::Cluster>,
+#  "oakley" => #<OodCluster::Cluster>,
+#  "ruby"   => #<OodCluster::Cluster>,
+#  "quick"  => #<OodCluster::Cluster>,
 #}
 ```
 
