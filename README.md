@@ -57,7 +57,7 @@ various servers hosted by the cluster.
 
 ```ruby
 # Play with the Oakley cluster
-oakley = osc_clusters[:oakley]
+oakley = osc_clusters["oakley"]
 #=> #<OodCluster::Cluster>
 
 # Check if Oakley has a Resource Manager server
