@@ -12,17 +12,16 @@ v1:
           type: "OodCluster::Servers::Torque"
           data:
             host: "oak-batch.osc.edu"
-            lib: "/usr/local/torque/5.1.1-1_fba25d92/lib"
-            bin: "/usr/local/torque/5.1.1-1_fba25d92/bin"
-            version: "5.1.1"
+            lib: "/opt/torque/lib64"
+            bin: "/opt/torque/bin"
+            version: "6.0.1"
         scheduler:
           type: "OodCluster::Servers::Moab"
           data:
             host: "oak-batch.osc.edu"
-            lib: "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib"
-            bin: "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin"
-            version: "8.1.1"
-            moabhomedir: "/var/spool/batch/moab"
+            bin: "/opt/moab/bin"
+            version: "9.0.1"
+            moabhomedir: "/var/spool/moab"
         ganglia:
           type: "OodCluster::Servers::Ganglia"
           data:
@@ -48,17 +47,16 @@ v1:
           type: "OodCluster::Servers::Torque"
           data:
             host: "ruby-batch.osc.edu"
-            lib: "/usr/local/torque/5.1.1-1_fba25d92/lib"
-            bin: "/usr/local/torque/5.1.1-1_fba25d92/bin"
-            version: 5.1.1
+            lib: "/opt/torque/lib64"
+            bin: "/opt/torque/bin"
+            version: "6.0.1"
         scheduler:
           type: "OodCluster::Servers::Moab"
           data:
             host: "ruby-batch.osc.edu"
-            lib: "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib"
-            bin: "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin"
-            version: "8.1.1"
-            moabhomedir: "/var/spool/batch/moab"
+            bin: "/opt/moab/bin"
+            version: "9.0.1"
+            moabhomedir: "/var/spool/moab"
         ganglia:
           type: "OodCluster::Servers::Ganglia"
           data:
@@ -81,17 +79,9 @@ v1:
           type: "OodCluster::Servers::Torque"
           data:
             host: "quick-batch.osc.edu"
-            lib: "/usr/local/torque/5.1.1-1_fba25d92/lib"
-            bin: "/usr/local/torque/5.1.1-1_fba25d92/bin"
-            version: "5.1.1"
+            lib: "/opt/torque/lib64"
+            bin: "/opt/torque/bin"
+            version: "6.0.1"
             sub_cluster:
               - "ruby"
               - "oakley"
-        scheduler:
-          type: "OodCluster::Servers::Moab"
-          data:
-            host: "quick-batch.osc.edu"
-            lib: "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/lib"
-            bin: "/usr/local/moab/8.1.1.2-2015080516-eb28ad0-el6/bin"
-            version: "8.1.1"
-            moabhomedir: "/var/spool/batch/moab"
