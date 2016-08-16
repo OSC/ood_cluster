@@ -1,9 +1,9 @@
-require 'ood_cluster/deserializable'
+require 'ood_cluster/json_serializer'
 
 module OodCluster
   # An object that describes a server hosted by a given cluster
   class Server
-    extend Deserializable
+    include JsonSerializer
 
     # The host information for this server object
     # @example Host information for login node

@@ -1,32 +1,24 @@
 require 'yaml'
-require 'ood_cluster/validatable'
-require 'ood_cluster/deserializable'
+require 'ood_cluster/json_serializer'
 
 module OodCluster
   # An object that describes a given cluster of nodes used by an HPC center
   class Cluster
-    extend Deserializable
-    include Validatable
+    include JsonSerializer
 
-    # @param validations [Array<Validation>] list of validations
     # @param servers [Hash{#to_sym=>Server}] hash of servers
     # @param hpc_cluster [Boolean] whether this is an hpc cluster
-    # @param rsv_query [nil,RsvQuery] reservation query object
-    def initialize(validations: [], servers: {}, hpc_cluster: true, rsv_query: nil, **_)
-      @validations = validations
+    def initialize(servers: {}, hpc_cluster: true, **_)
       @servers = servers.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
       @hpc_cluster = hpc_cluster
-      @rsv_query = rsv_query
     end
 
     # Convert object to hash
     # @return [Hash] the hash describing this object
     def to_h
       {
-        validations: @validations,
         servers: @servers,
-        hpc_cluster: @hpc_cluster,
-        rsv_query: @rsv_query
+        hpc_cluster: @hpc_cluster
       }
     end
 
@@ -34,25 +26,6 @@ module OodCluster
     # @return [Boolean] whether this an hpc-style cluster
     def hpc_cluster?
       @hpc_cluster
-    end
-
-    # Queries the batch server for a given reservation
-    # @param id [#to_s] the id of the reservation
-    # @return [Reservation, nil] the requested reservation
-    def reservation(id)
-      @rsv_query.reservation(cluster: self, id: id.to_s) if @rsv_query
-    end
-
-    # Queries the batch server for a list of reservations
-    # @return [Array<Reservation>, nil] list of reservations
-    def reservations
-      @rsv_query.reservations(cluster: self) if @rsv_query
-    end
-
-    # Whether this cluster can query reservations
-    # @return [Boolean] whether can handle reservation queries
-    def reservations?
-      !@rsv_query.nil? && @rsv_query.valid?
     end
 
     # Grab object from {@servers} hash or check if it exists
@@ -63,7 +36,7 @@ module OodCluster
       if /^(.+)_server$/ =~ method_name.to_s
         @servers.fetch($1.to_sym, nil)
       elsif /^(.+)_server\?$/ =~ method_name.to_s
-        @servers.has_key($1.to_sym)
+        @servers.has_key?($1.to_sym)
       else
         super
       end

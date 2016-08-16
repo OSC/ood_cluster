@@ -3,16 +3,6 @@ v1:
   oakley:
     type: "OodCluster::Cluster"
     data:
-      rsv_query:
-        type: "OodCluster::RsvQueries::TorqueMoab"
-        data:
-          validations:
-            - type: "OodCluster::Validations::Groups"
-              data:
-                groups:
-                  - "sysp"
-                  - "hpcsoft"
-                whitelist: false
       servers:
         login:
           type: "OodCluster::Servers::Ssh"
@@ -49,21 +39,6 @@ v1:
   ruby:
     type: "OodCluster::Cluster"
     data:
-      rsv_query:
-        type: "OodCluster::RsvQueries::TorqueMoab"
-        data:
-          validations:
-            - type: "OodCluster::Validations::Groups"
-              data:
-                groups:
-                  - "sysp"
-                  - "hpcsoft"
-                whitelist: false
-      validations:
-        - type: "OodCluster::Validations::Groups"
-          data:
-            groups:
-              - "ruby"
       servers:
         login:
           type: "OodCluster::Servers::Ssh"
