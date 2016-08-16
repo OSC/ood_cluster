@@ -81,23 +81,6 @@ oakley.resource_mgr_server.pbs.get_status
 #}
 ```
 
-Not only can you query the various servers, you can also query reservation
-information if it is available for the given cluster:
-
-```ruby
-# Check if this cluster handles reservations
-oakley.reservations?
-#=> true
-
-# Get reservations for currently running user
-oakley.reservations
-#=>
-#[
-#  #<OodCluster::Reservation>,
-#  #<OodCluster::Reservation>
-#]
-```
-
 ### Servers
 
 From the cluster you can query server information using the following syntax:
@@ -194,46 +177,6 @@ ganglia_server.uri.to_s
 # Add query values as options for the server
 ganglia_server.uri(query_values: {g: 'cpu_report'}).to_s
 #=> "https://www.hpc.edu/gweb/graph.php?c=MyCluster&g=cpu_report"
-```
-
-### Reservations
-
-If a cluster handles querying for reservations, you should be able to retrieve
-all the reservations available for the current user or you can specify a
-specific reservation. It will return to you a list of or a single reservation
-object respectively.
-
-```ruby
-# Check if cluster allows reservation querying
-my_cluster.reservations?
-#=> true
-
-# Get first reservation in list
-my_rsv = my_cluster.reservations.first
-#=> #<OodCluster::Reservation>
-
-# Has this reservation started yet?
-my_rsv.has_started?
-#=> true
-
-# Has this reservation ended yet?
-my_rsv.has_ended?
-#=> false
-
-# Get list of users/groups that have access to this reservation
-my_rsv.users.map(&:name)
-#=> ["bob", "sally", "me"]
-
-my_rsv.groups.map(&:name)
-#=> ["group1", "group2"]
-
-# List all nodes on reservation
-my_rsv.nodes.map(&:id)
-#=> ["n0001", "n0002"]
-
-# List nodes that have no jobs running on them
-my_rsv.free_nodes.map(&:id)
-#=> ["n0002"]
 ```
 
 ## Contributing
