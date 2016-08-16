@@ -20,10 +20,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.2.0"
 
   spec.add_dependency "pbs", "~> 2.0", ">= 2.0.1"
-  spec.add_dependency "ood_support", "~> 0.0"
   spec.add_dependency "addressable", "~> 2.4"
   spec.add_dependency "nokogiri", "~> 1.6"
-  spec.add_dependency "dry-validation", "~> 0.9"
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "pry", "~> 0.10"
