@@ -112,8 +112,8 @@ torque_server.host
 #=> "oak-batch.osc.edu"
 
 # Get client software information
-torque_server.prefix.to_s
-#=> "/usr/local/torque/default"
+torque_server.lib.to_s
+#=> "/usr/local/torque/default/lib"
 
 # Get the pbs object
 torque_server.pbs
@@ -138,8 +138,8 @@ moab_server.host
 #=> "oak-batch.osc.edu"
 
 # Get client software information
-moab_server.prefix.to_s
-#=> "/usr/local/moab/default"
+moab_server.bin.to_s
+#=> "/usr/local/moab/default/bin"
 
 # Get the generic moab object
 moab_server.moab
