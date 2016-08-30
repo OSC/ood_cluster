@@ -1,5 +1,3 @@
-require 'pbs'
-
 module OodCluster
   module Servers
     # This class defines a Torque server / client software installation
@@ -39,12 +37,6 @@ module OodCluster
       # @return [Hash] the hash describing this object
       def to_h
         super.merge lib: @lib, bin: @bin, version: @version
-      end
-
-      # The PBS object corresponding to this server
-      # @return [PBS::Batch] the pbs batch server
-      def pbs
-        PBS::Batch.new(host: host, lib: lib, bin: bin)
       end
     end
   end

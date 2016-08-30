@@ -99,8 +99,7 @@ ganglia = my_cluster.ganglia_server
 
 #### Torque
 
-This can be a `resource_mgr_server` for a cluster. It uses the `pbs` gem
-library for communication with this server:
+This can be a `resource_mgr_server` for a cluster.
 
 ```ruby
 # Assign torque server
@@ -114,19 +113,15 @@ torque_server.host
 # Get client software information
 torque_server.lib.to_s
 #=> "/usr/local/torque/default/lib"
-
-# Get the pbs object
-torque_server.pbs
-#=> #<PBS::Batch>
 ```
 
-Please see https://github.com/OSC/pbs-ruby/ for more information on how to use
-the `pbs` object.
+Communication with this server can then be handled through the `pbs` Ruby gem.
+Please see https://github.com/OSC/pbs-ruby for more information on how to use
+the `pbs` gem.
 
 #### Moab
 
-This can be a `scheduler_server` for a cluster. It comes with a generic `moab`
-object that allows for communication with this server:
+This can be a `scheduler_server` for a cluster.
 
 ```ruby
 # Assign moab server
@@ -140,28 +135,11 @@ moab_server.host
 # Get client software information
 moab_server.bin.to_s
 #=> "/usr/local/moab/default/bin"
-
-# Get the generic moab object
-moab_server.moab
-#=> #<PBS::Servers::Moab::Scheduler>
 ```
 
-Communication is handled through this `moab` object by calling system-installed
-binaries. The output of the command called with be given in the XML format and
-handled by the `nokogiri` gem.
-
-```ruby
-# Get generic moab object used for communication with Moab server
-moab = moab_server.moab
-
-# Call `mrsvctl` for this Moab server
-moab.call("mrsvctl", "-q", "ALL").xpath("//rsv/@Name").first.value
-#=> "my_rsv.832749"
-
-# Call `showq` for this Moab server
-moab.call("showq").xpath('//queue[@option="active"]/@count').first.value.to_i
-#=> 639
-```
+Communication with this server can then be handled through the `moab` Ruby gem.
+Please see https://github.com/OSC/moab-ruby for more information on how to use
+the `moab` gem.
 
 #### Ganglia
 
